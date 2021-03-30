@@ -3,7 +3,7 @@ const PORT = 5000;
 const fetch = require('node-fetch')
 const app = express();
 //const server = require('http').createServer(app);
-const weatherApiKey = '71829ac8843b55f618b23d8003b4944e';
+const weatherApiKey = '*********************';
 const cors = require('cors');
 
 app.use(express.static("client"));
