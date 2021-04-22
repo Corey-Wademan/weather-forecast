@@ -2,51 +2,112 @@
 import React, {useState, useEffect} from 'react';
 import ForecastContainer from './ForecastContainer';
 import CurrentWeatherComponent from '../Components/CurrentWeatherComponent';
-import Loader from '../Components/Loader';
 
 import '../Styles/WeatherContainer.css';
 import { Icon } from '@iconify/react';
 import searchIcon from '@iconify-icons/iwwa/search';
+// Day Backgrounds
+import partlyCloudy from '../Photos/party-cloudy-bg.jpg';
+import clear from '../Photos/clear-bg.jpg'
+import cloudy from '../Photos/cloudy-bg.jpg'
+import rain from '../Photos/rain-bg.jpg'
+import snow from '../Photos/snow-bg.jpg'
+import thunder from '../Photos/thunder-bg.jpg'
+import fog from '../Photos/fog-bg.jpg'
+// Night Backgrounds
+import clearNight from '../Photos/clear-bg-night.jpg';
+import partlyCloudyNight from '../Photos/party-cloudy-bg-night.jpg';
+import rainNight from '../Photos/rain-bg-night.jpg';
+import snowNight from '../Photos/snow-bg-night.jpg';
+import thunderNight from '../Photos/thunder-bg-night.jpg';
+import fogNight from '../Photos/fog-bg-night.jpg';
 
 
 
 const WeatherContainer = () => {
-    const [searchTerm, setsearchTerm] = useState('')
+    const [searchTerm, setsearchTerm] = useState()
     const [currentWeather, setCurrentWeather] = useState({});
     const [forecastedWeather, setForecastedWeather] = useState({});
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(false);
+    const [background, setBackground] = useState()
     
     const handleInput = (e) => {
         setsearchTerm(e.target.value);
     }
 
+    // Dynamically changes background depending on current weather
+    const backgroundHandler = () => {
+        // Day Backgrounds
+        if (Object.keys(currentWeather).length > 0) {
+            if (currentWeather.weather[0].icon === '01d') {
+                setBackground(clear)
+            } else if (currentWeather.weather[0].icon === '02d' || currentWeather.weather[0].icon === '04d' ) {
+                setBackground(partlyCloudy)
+            } else if (currentWeather.weather[0].icon === '03d') {
+                setBackground(cloudy)
+            } else if (currentWeather.weather[0].icon === '09d' || currentWeather.weather[0].icon === '10d') {
+                setBackground(rain)
+            } else if (currentWeather.weather[0].icon === '11d') {
+                setBackground(thunder)
+            } else if (currentWeather.weather[0].icon === '13d') {
+                setBackground(snow)
+            } else if (currentWeather.weather[0].icon === '50d') {
+                setBackground(fog)
+            }
+            // Night Backgrounds 
+            else if (currentWeather.weather[0].icon === '01n') {
+                setBackground(clearNight)
+            } else if (currentWeather.weather[0].icon === '02n' || currentWeather.weather[0].icon === '04dn' ) {
+                setBackground(partlyCloudyNight)
+            } else if (currentWeather.weather[0].icon === '03n') {
+                setBackground(partlyCloudyNight)
+            } else if (currentWeather.weather[0].icon === '09n' || currentWeather.weather[0].icon === '10n') {
+                setBackground(rainNight)
+            } else if (currentWeather.weather[0].icon === '11n') {
+                setBackground(thunderNight)
+            } else if (currentWeather.weather[0].icon === '13n') {
+                setBackground(snowNight)
+            } else if (currentWeather.weather[0].icon === '50n') {
+                setBackground(fogNight)
+            }
+        }
+    };
+    
     const handleSearch = () => {
         fetch(`/weather/${searchTerm}`)
             .then(res => { return res.json() })
             .then(result => {
-                setCurrentWeather({...result.data })
-                console.log(result)
+                setCurrentWeather({...result.data[0]})
+                setForecastedWeather({ ...result.data[1] })
+                console.log(currentWeather)
             })
-        setLoading(false)
+        backgroundHandler();
     };
-   
+
+    useEffect(() => {
+        backgroundHandler();
+    }, [handleSearch]);
 
     return (
-        <>
-            <div className='search-bar'>
-                    <input className='text_input' type='text' name='searchTerm' onChange={handleInput} placeholder='Enter city' />
-                    <button className='search-button' onClick={handleSearch} type='submit' value='submit' name='button'>
+        <div id='container'>
+            <div className='bar'>
+                    <input className='searchbar' type='text' name='searchTerm' onChange={handleInput} placeholder='Enter City & State' autoComplete='off' required/>
+                    <button className='search-btn' onClick={handleSearch} type='submit' value='submit' name='button'>
                         <Icon icon={searchIcon} flip="horizontal" />
                     </button>
             </div>
             
-            <div className='weather_container'>
+            <div className='weather-container' style={{ backgroundImage: `url(${background})` }}>
                 {Object.keys(currentWeather).length > 0
-                    ? <h1>{currentWeather.main.temp}</h1>
-                    : <Loader />
+                    ? <>
+                        <CurrentWeatherComponent
+                            currentWeather={currentWeather}/>
+                        <ForecastContainer forecastedWeather={forecastedWeather} />
+                      </>
+                    : <></>
                 }
-            </div>
-        </>
+            </div>  
+        </div>
     )
 
 };
