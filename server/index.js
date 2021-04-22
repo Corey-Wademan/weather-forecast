@@ -14,35 +14,21 @@ app.use(express.urlencoded({ extended: true }));
 // GET Current & Forecast Weather By Search Term
 app.get('/weather/:searchTerm', (req, res) => {
     const searchTerm = req.params.searchTerm;
-    let lat, long;
     
     let latLong = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchTerm}&key=${googleAPIKEY}`;
-    let weatherData = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude={part}&appid=${weatherApiKey}`;
+    
 
     fetch(latLong)
         .then(res => { return res.json() })
         .then(result => {
             lat = result.results[0].geometry.location.lat;
             long = result.results[0].geometry.location.lng;
+            return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely&units=imperial&appid=${weatherApiKey}`)
+                .then(response => { return response.json() })
+                .then(data => {
+                    res.send({data, result})
+                })
         });
-    
-    /*Promise.all([
-        fetch(latLong),
-        fetch(weatherData)
-    ]).then(function (responses) {
-        // Get a JSON object from each of the responses
-        return Promise.all(responses.map(function (response) {
-            return response.json();
-        }));
-    }).then(function (data) {
-        // Log the data to the console
-        // You would do something with both sets of data here
-        res.send({data})
-        //console.log(data);
-    }).catch(function (error) {
-        // if there's an error, log it
-        //console.log(error);
-    });*/
 }); 
 
 
