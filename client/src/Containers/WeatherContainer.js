@@ -26,10 +26,10 @@ import fogNight from '../Photos/fog-bg-night.jpg';
 
 const WeatherContainer = () => {
     const [searchTerm, setsearchTerm] = useState()
-    const [currentWeather, setCurrentWeather] = useState({});
-    const [forecastedWeather, setForecastedWeather] = useState({});
+    const [location, setLocation] = useState('');
+    const [weatherData, setWeatherData] = useState({});
     const [loading, setLoading] = useState(false);
-    const [background, setBackground] = useState()
+    const [background, setBackground] = useState('')
     
     const handleInput = (e) => {
         setsearchTerm(e.target.value);
@@ -38,36 +38,36 @@ const WeatherContainer = () => {
     // Dynamically changes background depending on current weather
     const backgroundHandler = () => {
         // Day Backgrounds
-        if (Object.keys(currentWeather).length > 0) {
-            if (currentWeather.weather[0].icon === '01d') {
+        if (Object.keys(weatherData).length > 0) {
+            if (weatherData.current.weather[0].icon === '01d') {
                 setBackground(clear)
-            } else if (currentWeather.weather[0].icon === '02d' || currentWeather.weather[0].icon === '04d' ) {
+            } else if (weatherData.current.weather[0].icon === '02d' || weatherData.current.weather[0].icon === '04d' ) {
                 setBackground(partlyCloudy)
-            } else if (currentWeather.weather[0].icon === '03d') {
+            } else if (weatherData.current.weather[0].icon === '03d') {
                 setBackground(cloudy)
-            } else if (currentWeather.weather[0].icon === '09d' || currentWeather.weather[0].icon === '10d') {
+            } else if (weatherData.current.weather[0].icon === '09d' || weatherData.current.weather[0].icon === '10d') {
                 setBackground(rain)
-            } else if (currentWeather.weather[0].icon === '11d') {
+            } else if (weatherData.current.weather[0].icon === '11d') {
                 setBackground(thunder)
-            } else if (currentWeather.weather[0].icon === '13d') {
+            } else if (weatherData.current.weather[0].icon === '13d') {
                 setBackground(snow)
-            } else if (currentWeather.weather[0].icon === '50d') {
+            } else if (weatherData.current.weather[0].icon === '50d') {
                 setBackground(fog)
             }
             // Night Backgrounds 
-            else if (currentWeather.weather[0].icon === '01n') {
+            else if (weatherData.current.weather[0].icon === '01n') {
                 setBackground(clearNight)
-            } else if (currentWeather.weather[0].icon === '02n' || currentWeather.weather[0].icon === '04dn' ) {
+            } else if (weatherData.current.weather[0].icon === '02n' || weatherData.current.weather[0].icon === '04n' ) {
                 setBackground(partlyCloudyNight)
-            } else if (currentWeather.weather[0].icon === '03n') {
+            } else if (weatherData.current.weather[0].icon === '03n') {
                 setBackground(partlyCloudyNight)
-            } else if (currentWeather.weather[0].icon === '09n' || currentWeather.weather[0].icon === '10n') {
+            } else if (weatherData.current.weather[0].icon === '09n' || weatherData.current.weather[0].icon === '10n') {
                 setBackground(rainNight)
-            } else if (currentWeather.weather[0].icon === '11n') {
+            } else if (weatherData.current.weather[0].icon === '11n') {
                 setBackground(thunderNight)
-            } else if (currentWeather.weather[0].icon === '13n') {
+            } else if (weatherData.current.weather[0].icon === '13n') {
                 setBackground(snowNight)
-            } else if (currentWeather.weather[0].icon === '50n') {
+            } else if (weatherData.current.weather[0].icon === '50n') {
                 setBackground(fogNight)
             }
         }
@@ -77,11 +77,10 @@ const WeatherContainer = () => {
         fetch(`/weather/${searchTerm}`)
             .then(res => { return res.json() })
             .then(result => {
-                setCurrentWeather({...result.data[0]})
-                setForecastedWeather({ ...result.data[1] })
-                console.log(currentWeather)
+                setWeatherData(result.weatherData)
+                setLocation(result.areaData.results[0].formatted_address)
             })
-        backgroundHandler();
+       backgroundHandler();
     };
 
     useEffect(() => {
@@ -97,16 +96,17 @@ const WeatherContainer = () => {
                     </button>
             </div>
             
-            <div className='weather-container' style={{ backgroundImage: `url(${background})` }}>
-                {Object.keys(currentWeather).length > 0
-                    ? <>
-                        <CurrentWeatherComponent
-                            currentWeather={currentWeather}/>
-                        <ForecastContainer forecastedWeather={forecastedWeather} />
-                      </>
+            
+                {Object.keys(weatherData).length > 0
+                    ? <div className='weather-container' style={{backgroundImage: `url(${background})`}}>
+                            <CurrentWeatherComponent
+                                location={location}
+                                currentWeather={weatherData}/>
+                            <ForecastContainer weatherData={weatherData} />
+                        </div> 
                     : <></>
                 }
-            </div>  
+             
         </div>
     )
 
