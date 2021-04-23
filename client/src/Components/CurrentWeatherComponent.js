@@ -1,6 +1,11 @@
 // Contains all data for current weather
 import React, {useEffect} from 'react';
 import '../Styles/CurrentWeatherComponent.css';
+import { Icon } from '@iconify/react';
+import sunIcon from '@iconify-icons/emojione/sun';
+import cloudWithRain from '@iconify-icons/emojione/cloud-with-rain';
+
+
 
 const CurrentWeatherComponent = ({ currentWeather, location }) => {
     
@@ -15,10 +20,12 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
         let minutes = "0" + date.getMinutes();
         let formattedTime;
         // let timezone = currentWeather.timezone
-        if (hours > 12) {
+        if (hours >= 12) {
             return formattedTime = hours - 12 + ':' + minutes.substr(-2) + ' p.m.';
-        } else 
-        return formattedTime = hours + ':' + minutes.substr(-2) + ' a.m.';
+        } else {
+            return formattedTime = hours + ':' + minutes.substr(-2) + ' a.m.';
+        }
+        
     }
 
     const compassDirection = (degrees) => {
@@ -49,21 +56,18 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
         // arrow 
     }; 
 
-    
-      
-
     useEffect(() => {
         compassDirection(currentWeather.current.wind_deg);
     })
-
-
-
-
 
     return (
         <div>
             <div className='location-info'>
                 <h2>{location} <span>|</span> {stampFormatter(timestamp)}</h2>
+
+                <div className='sun-settings'>
+                    <h2>Sunrise: {stampFormatter(sunriseStamp)} | Sunset: {stampFormatter(sunsetStamp)}</h2>
+                </div>
             </div>
             <div className='row'>
                 <div className='main'>
@@ -71,14 +75,20 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
                     <h4>Feels Like: {currentWeather.current.feels_like} <span>℉</span></h4>
                     <h4>{currentWeather.current.weather[0].main}</h4>
                 </div>
-                <div className='sun-settings'>
-                    <h2>Sunrise: {stampFormatter(sunriseStamp)} | Sunset: {stampFormatter(sunsetStamp)}</h2>
-                </div>
-                <div className='sub-main'>
+
+                <div className='main'>
                     <h3>Humidity: {currentWeather.current.humidity}%</h3>
+                    <h3><Icon style={{ fontSize: '2.5rem', verticalAlign: 'middle' }} icon={sunIcon} /> UV Index: { currentWeather.current.uvi }</h3>
+                </div>
+    
+                <div className='main'>
                     <h3>Wind: {Math.round(currentWeather.current.wind_speed)}mph</h3>
+                    <h3><Icon style={{ fontSize: '2.5rem', verticalAlign: 'middle' }} icon={cloudWithRain} /> { currentWeather.current.clouds }%</h3>
+                </div>
+                <div className='main'>
+
                     <h3>Wind Direction</h3>
-                    <canvas id="compass" height='130' width='250' />
+                    <canvas id="compass" height='110' width='220' />
                 </div>
             </div>
         </div>
