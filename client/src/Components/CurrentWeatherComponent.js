@@ -76,14 +76,14 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
                     <h4>{currentWeather.current.weather[0].main}</h4>
                 </div>
 
-                <div className='main'>
-                    <h3>Humidity: {currentWeather.current.humidity}%</h3>
-                    <h3><Icon style={{ fontSize: '2.5rem', verticalAlign: 'middle' }} icon={sunIcon} /> UV Index: { currentWeather.current.uvi }</h3>
+                <div className='main' style={{alignItems: 'flex-start'}}>
+                    <h3><Icon style={{ fontSize: '2.5rem', verticalAlign: 'middle' }} icon={sunIcon} /> UV Index: {currentWeather.current.uvi}</h3>
+                    <h3><Icon style={{ fontSize: '2.5rem', verticalAlign: 'middle' }} icon={cloudWithRain} /> { currentWeather.current.clouds }%</h3>
                 </div>
     
                 <div className='main'>
                     <h3>Wind: {Math.round(currentWeather.current.wind_speed)}mph</h3>
-                    <h3><Icon style={{ fontSize: '2.5rem', verticalAlign: 'middle' }} icon={cloudWithRain} /> { currentWeather.current.clouds }%</h3>
+                    <h3>Humidity: {currentWeather.current.humidity}%</h3>
                 </div>
                 <div className='main'>
 
