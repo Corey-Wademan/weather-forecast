@@ -27,25 +27,25 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
         }
         
     };
-   /* console.log(currentWeather.current.wind_deg)
+   console.log(currentWeather.current.wind_deg)
     const calcWindDirections = (wind) => {
-        if (wind >= 348.75 || wind <= 11.25) { return 'N' }
-        else if (wind >= 11.2 && wind <= 33.75) { return 'NNE' }
-        else if (wind >= 33.75 && wind <= 56.25) { return 'NE' }
-        else if (wind >= 56.25 && wind <= 78.75) { return 'ENE' }
-        else if (wind >= 78.75 && wind <= 101.25) { return 'E' }
-        else if (wind >= 101.25 && wind <= 123.75) { return 'ESE' }
-        else if (wind >= 123.75 && wind <=  146.25) { return 'SE' }
-        else if (wind >= 348 && wind <= 11.25) { return 'SSE' }
-        else if (wind >= 348 && wind <= 11.25) { return 'S' }
-        else if (wind >= 348 && wind <= 11.25) { return 'SSW' }
-        else if (wind >= 348 && wind <= 11.25) { return 'SW' }
-        else if (wind >= 348 && wind <= 11.25) { return 'WSW' }
-        else if (wind >= 348 && wind <= 11.25) { return 'W' }
-        else if (wind >= 281.25 && wind <= 303.75) { return 'WNW' }
-        else if (wind >= 348 && wind <= 11.25) { return 'NW' }
-        else if (wind >= 348 && wind <= 11.25)  { return 'NNW' }
-    } */
+        if (wind >= 349 || wind <= 11) { return 'N' }
+        else if (wind >= 12 && wind <= 33) { return 'NNE' }
+        else if (wind >= 34 && wind <= 56) { return 'NE' }
+        else if (wind >= 57 && wind <= 78) { return 'ENE' }
+        else if (wind >= 79 && wind <= 101) { return 'E' }
+        else if (wind >= 102 && wind <= 123) { return 'ESE' }
+        else if (wind >= 124 && wind <=  146) { return 'SE' }
+        else if (wind >= 147 && wind <= 168) { return 'SSE' }
+        else if (wind >= 1689 && wind <= 191) { return 'S' }
+        else if (wind >= 192 && wind <= 213) { return 'SSW' }
+        else if (wind >= 214 && wind <= 236) { return 'SW' }
+        else if (wind >= 237 && wind <= 258) { return 'WSW' }
+        else if (wind >= 259 && wind <= 281) { return 'W' }
+        else if (wind >= 282 && wind <= 303) { return 'WNW' }
+        else if (wind >= 304 && wind <= 326) { return 'NW' }
+        else if (wind >= 327 && wind <= 348)  { return 'NNW' }
+    } 
 
     const compassDirection = (degrees) => {
         let x, y, r, ctx, radians;
@@ -107,7 +107,7 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
                 <div className='main'>
 
                     <h3>Wind Direction</h3>
-                    {/*<h4>{calcWindDirections(currentWeather.current.wind_deg)}</h4>*/}
+                    {<h4>{calcWindDirections(currentWeather.current.wind_deg)}</h4>}
                     <canvas id="compass" height='110' width='220' />
                 </div>
             </div>
