@@ -1,7 +1,9 @@
 // Contains The Apps State - Passes down to Forecast & Current Weather Container
 import React, {useState, useEffect} from 'react';
-import ForecastContainer from './ForecastContainer';
 import CurrentWeatherComponent from '../Components/CurrentWeatherComponent';
+import DayForecastComponent from '../Components/DayForecastComponent';
+import HourlyForecastComponent from '../Components/HourlyForecastComponent';
+
 
 import '../Styles/WeatherContainer.css';
 import { Icon } from '@iconify/react';
@@ -102,7 +104,8 @@ const WeatherContainer = () => {
                             <CurrentWeatherComponent
                                 location={location}
                                 currentWeather={weatherData}/>
-                            <ForecastContainer weatherData={weatherData} />
+                            <HourlyForecastComponent weatherData={weatherData} />
+                            <DayForecastComponent weatherData={weatherData} />
                         </div> 
                     : <></>
                 }
