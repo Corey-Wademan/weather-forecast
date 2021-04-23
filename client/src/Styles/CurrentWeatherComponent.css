@@ -1,0 +1,54 @@
+.location-info {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 1rem;
+} 
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.row span { 
+    font-size: .9rem;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    line-height: 0px;
+}
+    .main h2 {
+        font-size: 4rem;
+        font-weight: 700;
+    }
+    .main h4 { 
+        font-size: 18px;
+    }
+    .main span {
+        font-size: 16px;
+    }
+
+.sun-settings {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sub-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 0px;
+}
+
+#compass {
+    background: url('../Photos/Compass.png'); 
+    background-size: cover;
+  }
