@@ -37,7 +37,7 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
         else if (wind >= 102 && wind <= 123) { return 'ESE' }
         else if (wind >= 124 && wind <=  146) { return 'SE' }
         else if (wind >= 147 && wind <= 168) { return 'SSE' }
-        else if (wind >= 1689 && wind <= 191) { return 'S' }
+        else if (wind >= 169 && wind <= 191) { return 'S' }
         else if (wind >= 192 && wind <= 213) { return 'SSW' }
         else if (wind >= 214 && wind <= 236) { return 'SW' }
         else if (wind >= 237 && wind <= 258) { return 'WSW' }
