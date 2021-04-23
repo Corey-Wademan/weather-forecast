@@ -26,7 +26,26 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
             return formattedTime = hours + ':' + minutes.substr(-2) + ' a.m.';
         }
         
-    }
+    };
+   /* console.log(currentWeather.current.wind_deg)
+    const calcWindDirections = (wind) => {
+        if (wind >= 348.75 || wind <= 11.25) { return 'N' }
+        else if (wind >= 11.2 && wind <= 33.75) { return 'NNE' }
+        else if (wind >= 33.75 && wind <= 56.25) { return 'NE' }
+        else if (wind >= 56.25 && wind <= 78.75) { return 'ENE' }
+        else if (wind >= 78.75 && wind <= 101.25) { return 'E' }
+        else if (wind >= 101.25 && wind <= 123.75) { return 'ESE' }
+        else if (wind >= 123.75 && wind <=  146.25) { return 'SE' }
+        else if (wind >= 348 && wind <= 11.25) { return 'SSE' }
+        else if (wind >= 348 && wind <= 11.25) { return 'S' }
+        else if (wind >= 348 && wind <= 11.25) { return 'SSW' }
+        else if (wind >= 348 && wind <= 11.25) { return 'SW' }
+        else if (wind >= 348 && wind <= 11.25) { return 'WSW' }
+        else if (wind >= 348 && wind <= 11.25) { return 'W' }
+        else if (wind >= 281.25 && wind <= 303.75) { return 'WNW' }
+        else if (wind >= 348 && wind <= 11.25) { return 'NW' }
+        else if (wind >= 348 && wind <= 11.25)  { return 'NNW' }
+    } */
 
     const compassDirection = (degrees) => {
         let x, y, r, ctx, radians;
@@ -77,7 +96,7 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
                 </div>
 
                 <div className='main' style={{alignItems: 'flex-start'}}>
-                    <h3><Icon style={{ fontSize: '2.5rem', verticalAlign: 'middle' }} icon={sunIcon} /> UV Index: {currentWeather.current.uvi}</h3>
+                    <h3><Icon style={{ fontSize: '2.5rem', verticalAlign: 'middle' }} icon={sunIcon} /> UV Index: {Math.round(currentWeather.current.uvi)}</h3>
                     <h3><Icon style={{ fontSize: '2.5rem', verticalAlign: 'middle' }} icon={cloudWithRain} /> { currentWeather.current.clouds }%</h3>
                 </div>
     
@@ -88,6 +107,7 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
                 <div className='main'>
 
                     <h3>Wind Direction</h3>
+                    {/*<h4>{calcWindDirections(currentWeather.current.wind_deg)}</h4>*/}
                     <canvas id="compass" height='110' width='220' />
                 </div>
             </div>
