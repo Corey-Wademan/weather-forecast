@@ -13,7 +13,6 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
     let sunriseStamp = currentWeather.current.sunrise
     let sunsetStamp = currentWeather.current.sunset
     
-// ADD IN ADDITION FOR SELECTED TIMEZONE
     const stampFormatter = (stamp) => {
         let date = new Date(stamp * 1000);
         let hours = date.getHours();
@@ -27,7 +26,7 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
         }
         
     };
-   console.log(currentWeather.current.wind_deg)
+
     const calcWindDirections = (wind) => {
         if (wind >= 349 || wind <= 11) { return 'N' }
         else if (wind >= 12 && wind <= 33) { return 'NNE' }
@@ -80,7 +79,7 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
     })
 
     return (
-        <div>
+        <div className='currentWeatherContainer'>
             <div className='location-info'>
                 <h2>{location} <span>|</span> {stampFormatter(timestamp)}</h2>
 
