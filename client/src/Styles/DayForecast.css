@@ -10,17 +10,17 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center; 
     color: white;
     width: 12.5%;
 }
-    .day h3 {
-        color: rgb(85, 85, 85);
-    }
+    .day h3 { color: rgb(251, 255, 5); }
+    .day img { height: 75px }
     .day > * {
         margin:  0;
         padding: 0;
     }
+
 
 .dayHighLow {
     display: flex;

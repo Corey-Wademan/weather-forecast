@@ -1,0 +1,30 @@
+.hourlyForecastComponent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 33%;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.hour {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    color: white;
+    margin: 0px 25px;
+}
+.hour > * {
+    margin: 5px 0;
+}
+.bottom-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+    .bottom-section h4 {
+        margin: 0 10px;
+    }

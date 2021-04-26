@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
+
+#container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    font-family: 'Space Grotesk', sans-serif;
+}
+.weather-container {
+    width: 85vw;
+    height: 100vh;
+    border-radius: 20px;
+    background-position: bottom;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/*---Search Bar---*/
+
+.search-btn {
+    background: transparent;
+    border: none;
+    font-size: 25px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.bar {
+    position: relative;
+    top: 20%;
+    margin: 0 auto;
+    width: 41%;
+    border-radius: 30px;
+    border: 1px solid #dcdcdc;
+    margin: 2rem 0;
+}
+.bar:hover{
+    box-shadow: 1px 1px 8px 1px #dcdcdc;
+}
+.bar:focus-within{
+    box-shadow: 1px 1px 8px 1px #dcdcdc;
+    outline:none;
+}
+.searchbar{
+    height:45px;
+    border:none;
+    width:500px;
+    font-size:16px;
+    outline: none;
+}

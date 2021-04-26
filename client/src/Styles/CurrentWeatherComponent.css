@@ -1,40 +1,52 @@
+.currentWeatherContainer {
+    height: 33%;
+}
+
 .location-info {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 0 1rem;
+    margin: 0 5px;
 } 
+    .location-info h2 {
+        margin: 5px;
+    }
 
 .row {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    align-items: baseline;
+    align-items: flex-start;
 }
 
-.row span { 
-    font-size: .9rem;
-}
+    .row span { 
+        font-size: .9rem;
+    }
 
 .main {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    line-height: 0px;
 }
     .main h2 {
         font-size: 4rem;
         font-weight: 700;
-        margin: 15px 0;
+        margin: 5px;
     }
     .main h4 { 
         font-size: 18px;
-        margin: 15px 0;
+        margin: 0;
     }
     .main span {
         font-size: 16px;
     }
+.sub-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 
 .sun-settings {
     display: flex;
