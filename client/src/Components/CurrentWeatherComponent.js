@@ -14,17 +14,10 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
     let sunsetStamp = currentWeather.current.sunset
     
     const stampFormatter = (stamp) => {
-        let date = new Date(stamp * 1000);
-        let hours = date.getHours();
-        let minutes = "0" + date.getMinutes();
-        let formattedTime;
-        // let timezone = currentWeather.timezone
-        if (hours >= 12) {
-            return formattedTime = hours - 12 + ':' + minutes.substr(-2) + ' p.m.';
-        } else {
-            return formattedTime = hours + ':' + minutes.substr(-2) + ' a.m.';
-        }
-        
+        let newStamp = stamp * 1000
+        let date = new Date(newStamp);
+        let formattedTime = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+        return formattedTime
     };
 
     const calcWindDirections = (wind) => {
@@ -43,15 +36,17 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
         else if (wind >= 259 && wind <= 281) { return 'W' }
         else if (wind >= 282 && wind <= 303) { return 'WNW' }
         else if (wind >= 304 && wind <= 326) { return 'NW' }
-        else if (wind >= 327 && wind <= 348)  { return 'NNW' }
-    } 
+        else if (wind >= 327 && wind <= 348) { return 'NNW' }
+    }
+    
+    console.log(currentWeather.current.wind_speed)
 
     const compassDirection = (degrees) => {
         let x, y, r, ctx, radians;
         ctx = window.compass.getContext("2d");
         // add 90 so that north is up then convert to radians so arrow points in correct direction
         radians = 0.0174533 * (degrees + 90);
-        // calc compass centre 
+        // calc compass center
         x = ctx.canvas.width / 2;
         y = ctx.canvas.height / 2;
         r = x * 0.37;
@@ -103,10 +98,11 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
                     <h3>Wind: {Math.round(currentWeather.current.wind_speed)}mph</h3>
                     <h3>Humidity: {currentWeather.current.humidity}%</h3>
                 </div>
-                <div className='main'>
-
-                    <h3>Wind Direction</h3>
-                    {<h4>{calcWindDirections(currentWeather.current.wind_deg)}</h4>}
+                <div className='sub-main'>
+                    <div className='main'>
+                        <h3>Wind Direction</h3>
+                        {<h4>{calcWindDirections(currentWeather.current.wind_deg)}</h4>}
+                    </div>
                     <canvas id="compass" height='110' width='220' />
                 </div>
             </div>
