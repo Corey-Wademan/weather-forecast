@@ -2,8 +2,7 @@ const express = require('express');
 const PORT = 5000;
 const fetch = require('node-fetch')
 const app = express();
-const weatherApiKey;
-const googleAPIKEY;
+require('dotenv').config()
 const cors = require('cors');
 
 app.use(express.static("client"));
@@ -13,20 +12,20 @@ app.use(express.urlencoded({ extended: true }));
 
 // GET Current & Forecast Weather By Search Term
 app.get('/weather/:searchTerm', (req, res) => {
-    const searchTerm = req.params.searchTerm;
+    const searchTerm = req.params.searchTerm;  
     
-    let latLong = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchTerm}&key=${googleAPIKEY}`;
+    let latLong = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchTerm}&key=${process.env.googleAPIKEY}`;
     
-
+ 
     fetch(latLong)
         .then(res => { return res.json() })
-        .then(result => {
-            lat = result.results[0].geometry.location.lat;
-            long = result.results[0].geometry.location.lng;
-            return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely&units=imperial&appid=${weatherApiKey}`)
+        .then(areaData => {
+            lat = areaData.results[0].geometry.location.lat;
+            long = areaData.results[0].geometry.location.lng;
+            return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=minutely&units=imperial&appid=${process.env.weatherApiKey}`)
                 .then(response => { return response.json() })
-                .then(data => {
-                    res.send({data, result})
+                .then(weatherData => {
+                    res.send({weatherData, areaData})
                 })
         });
 }); 
