@@ -1,8 +1,8 @@
 [build]
   base = "/"
-  publish = "client/public/index.html"
+  publish = "client/"
   command  = "CI= npm run build"
-  functions = "/server/index.js"
+  functions = "server/"
 [[redirects]]
   from = "/*"
   to = "/client/public/index.html"
