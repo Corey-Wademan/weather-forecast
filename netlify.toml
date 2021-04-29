@@ -2,7 +2,7 @@
   base = "/"
   publish = "client/public/"
   command  = "npm run build"
-  functions = "server/"
+  functions = "server/index.js"
 [[redirects]]
   from = "/*"
   to = "/index.html"
