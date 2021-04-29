@@ -2,7 +2,6 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
@@ -39,6 +38,7 @@
   "devDependencies": {
     "@iconify-icons/emojione": "^1.1.0",
     "@iconify-icons/iwwa": "^1.1.0",
-    "@iconify/react": "^1.1.4"
+    "@iconify/react": "^1.1.4",
+    "webpack-cli": "^4.1.0"
   }
 }
