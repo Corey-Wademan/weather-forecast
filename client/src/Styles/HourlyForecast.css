@@ -6,6 +6,7 @@
     height: 33%;
     overflow-y: hidden;
     overflow-x: auto;
+    margin: 1rem;
 }
 
 .hour {
