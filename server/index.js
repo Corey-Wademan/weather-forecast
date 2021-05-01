@@ -9,6 +9,7 @@ app.use(express.static("client"));
 app.use(cors()); 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname,'client/build';)));
 
 // GET Current & Forecast Weather By Search Term
 app.get('/weather/:searchTerm', (req, res) => {
@@ -29,6 +30,10 @@ app.get('/weather/:searchTerm', (req, res) => {
                 })
         });
 }); 
+
+app.get'*', (req, res) => {
+res.sendFile(path.join(__dirname+'/client/build/i
+ndex.html')); });
 
 
 app.listen(process.env.PORT || PORT); 
