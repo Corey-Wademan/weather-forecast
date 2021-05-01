@@ -14,8 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 // GET Current & Forecast Weather By Search Term
 app.get('/weather/:searchTerm', (req, res) => {
     const searchTerm = req.params.searchTerm;  
-
-    console.log(process.env.googleAPIKEY)
     
     let latLong = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchTerm}&key=${process.env.googleAPIKEY}`; 
      
