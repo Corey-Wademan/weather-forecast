@@ -43,7 +43,7 @@ const HourlyForecastComponent = ({ weatherData }) => {
                     {/* Icon */}
                     <h3>{Math.round(hour.temp)}°</h3>
                         <div className='bottom-section'>
-                            <h4>🌧️<br />{hour.pop * 100}%</h4>
+                            <h4>🌧️<br />{Math.round(hour.pop * 100)}%</h4>
                             <h4>☀️<br />{Math.round(hour.uvi)}</h4>
                             <h4>{Math.round(hour.wind_speed)}mph <br /> {calcWindDirections(hour.wind_deg)} </h4>
                         </div>
