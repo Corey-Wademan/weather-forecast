@@ -1,10 +1,12 @@
 .dayForecastComponent {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
+    justify-content: space-between;    
+    align-items: baseline;
     height: 33%;
+    overflow-x: scroll;
     margin: 1rem;
+    border: 1px solid white;
 }
 
 .day {
@@ -13,7 +15,7 @@
     justify-content: center;
     align-items: center; 
     color: white;
-    width: 12.5%;
+    margin: .5rem;
 }
     .day h3 { color: rgb(251, 255, 5); }
     .day img { height: 75px }
@@ -37,5 +39,4 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    line-height: 0;
 }

@@ -7,6 +7,7 @@
     flex-direction: row;
     justify-content: space-between;
     margin: 0 5px;
+    font-size: 2vh;
 } 
     .location-info h2 {
         margin: 5px;
@@ -17,29 +18,22 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: flex-start;
+    flex-wrap: wrap;
 }
-
-    .row span { 
-        font-size: .9rem;
-    }
 
 .main {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    margin: 0 .4vw;
 }
     .main h2 {
-        font-size: 4rem;
         font-weight: 700;
         margin: 5px;
     }
     .main h4 { 
-        font-size: 18px;
         margin: 0;
-    }
-    .main span {
-        font-size: 16px;
     }
 .sub-main {
     display: flex;

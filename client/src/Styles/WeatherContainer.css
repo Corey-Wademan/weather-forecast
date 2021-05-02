@@ -31,13 +31,18 @@
 }
 
 .bar {
-    position: relative;
+    display: flex;
     top: 20%;
     margin: 0 auto;
     width: 41%;
     border-radius: 30px;
     border: 1px solid #dcdcdc;
     margin: 2rem 0;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
 }
 .bar:hover{
     box-shadow: 1px 1px 8px 1px #dcdcdc;
@@ -46,10 +51,22 @@
     box-shadow: 1px 1px 8px 1px #dcdcdc;
     outline:none;
 }
-.searchbar{
-    height:50px;
-    border:none;
-    width:500px;
-    font-size:16px;
+.searchbar {
+    height: 35px;
+    background: transparent;
+    border: none;
+    width: 90%;
+    font-size: 16px;
     outline: none;
+}
+::-webkit-scrollbar {
+    width: .5rem;
+    height: .5rem;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(transparent, #2d0a49);
+    border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(transparent, #1900ff);
 }
