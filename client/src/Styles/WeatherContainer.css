@@ -51,6 +51,9 @@
     box-shadow: 1px 1px 8px 1px #dcdcdc;
     outline:none;
 }
+    @media (max-width: 768px) {
+        .bar {width: 70%;}
+    }
 .searchbar {
     height: 35px;
     background: transparent;
