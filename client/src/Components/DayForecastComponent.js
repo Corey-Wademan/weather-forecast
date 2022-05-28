@@ -68,7 +68,6 @@ const DayForecastComponent = ({ weatherData }) => {
     return ( 
         <div className='dayForecastComponent'>
             {weatherData.daily.map((day, index) => {
-                console.log(day);
                 return (
                 <div key={index} className='day'>
                     <h3>{dayFormatter(day.dt)}</h3>

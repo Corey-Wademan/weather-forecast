@@ -1,10 +1,9 @@
-// Contains The Apps State - Passes down to Forecast & Current Weather Container
 import React, {useState, useEffect} from 'react';
 import CurrentWeatherComponent from '../Components/CurrentWeatherComponent';
 import DayForecastComponent from '../Components/DayForecastComponent';
 import HourlyForecastComponent from '../Components/HourlyForecastComponent';
-
-
+import Loader from '../Components/Loader';
+ 
 import '../Styles/WeatherContainer.css';
 import { Icon } from '@iconify/react';
 import searchIcon from '@iconify-icons/iwwa/search';
@@ -76,30 +75,33 @@ const WeatherContainer = () => {
     };
     
     const handleSearch = () => {
+        setLoading(true)
         fetch(`/weather/${searchTerm}`)
-            .then(res => { return res.json() })
+            .then(res => res.json())
             .then(result => {
+                setLoading(false)
                 setWeatherData(result.weatherData)
                 setLocation(result.areaData.results[0].formatted_address)
+                setsearchTerm('')
             })
        backgroundHandler();
     };
 
     useEffect(() => {
         backgroundHandler();
-    }, [handleSearch]);
+    }, []);
 
     return (
         <div id='container'>
             <div className='bar'>
-                    <input className='searchbar' type='text' name='searchTerm' onChange={handleInput} placeholder='Enter City & State' autoComplete='off' required/>
+                    <input className='searchbar' type='text' value={searchTerm} name='searchTerm' onChange={handleInput} placeholder='Enter City & State' autoComplete='off' required/>
                     <button className='search-btn' onClick={handleSearch} type='submit' value='submit' name='button'>
                         <Icon icon={searchIcon} flip="horizontal" />
                     </button>
             </div>
-            
-            
-                {Object.keys(weatherData).length > 0
+                {loading 
+                    ? <h1 style={{color:'black'}}>Loading search results...</h1>
+                : Object.keys(weatherData).length > 0 && !loading
                     ? <div className='weather-container' style={{backgroundImage: `url(${background})`}}>
                             <CurrentWeatherComponent
                                 location={location}
@@ -107,9 +109,8 @@ const WeatherContainer = () => {
                             <HourlyForecastComponent weatherData={weatherData} />
                             <DayForecastComponent weatherData={weatherData} />
                         </div> 
-                    : <></>
+                : <></>
                 }
-             
         </div>
     )
 

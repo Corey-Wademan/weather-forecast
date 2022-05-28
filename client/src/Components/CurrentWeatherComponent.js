@@ -39,8 +39,6 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
         else if (wind >= 327 && wind <= 348) { return 'NNW' }
     }
     
-    console.log(currentWeather.current.wind_speed)
-
     const compassDirection = (degrees) => {
         let x, y, r, ctx, radians;
         ctx = window.compass.getContext("2d");
@@ -49,7 +47,7 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
         // calc compass center
         x = ctx.canvas.width / 2;
         y = ctx.canvas.height / 2;
-        r = x * 0.37;
+        r = x * 0.33;
         // clear 
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
         ctx.beginPath();
@@ -62,7 +60,7 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
         ctx.shadowBlur = 10;
         ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
         // draw compass needle
-        ctx.lineWidth = 7;
+        ctx.lineWidth = 5;
         ctx.moveTo(x, y);
         ctx.lineTo(x + r * Math.cos(radians), y + r * Math.sin(radians));
         ctx.stroke();
@@ -103,7 +101,7 @@ const CurrentWeatherComponent = ({ currentWeather, location }) => {
                         <h3>Wind Direction</h3>
                         {<h4>{calcWindDirections(currentWeather.current.wind_deg)}</h4>}
                     </div>
-                    <canvas id="compass" height='110' width='220' />
+                    <canvas id="compass" height='80' width='160' />
                 </div>
             </div>
         </div>

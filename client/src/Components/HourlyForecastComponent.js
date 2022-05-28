@@ -4,8 +4,6 @@ import '../Styles/HourlyForecast.css';
 
 const HourlyForecastComponent = ({ weatherData }) => {
     
-    
-    
     const stampFormatter = (stamp) => {
         let newStamp = stamp * 1000
         let date = new Date(newStamp);
@@ -36,7 +34,6 @@ const HourlyForecastComponent = ({ weatherData }) => {
     return (
         <div className='hourlyForecastComponent'>
             {weatherData.hourly.map((hour, index) => {
-                console.log(hour);
                 return (
                 <div key={index} className='hour'>
                     <h3>{stampFormatter(hour.dt)}</h3>
