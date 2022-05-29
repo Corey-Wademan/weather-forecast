@@ -6,6 +6,7 @@ import Loader from '../Components/Loader';
  
 import '../Styles/WeatherContainer.css';
 import { Icon } from '@iconify/react';
+import Spinner from '../Photos/Spinner.png'
 import searchIcon from '@iconify-icons/iwwa/search';
 // Day Backgrounds
 import partlyCloudy from '../Photos/party-cloudy-bg.jpg';
@@ -26,49 +27,47 @@ import fogNight from '../Photos/fog-bg-night.jpg';
 
 
 const WeatherContainer = () => {
-    const [searchTerm, setsearchTerm] = useState()
+    const [searchTerm, setsearchTerm] = useState('')
     const [location, setLocation] = useState('');
     const [weatherData, setWeatherData] = useState({});
     const [loading, setLoading] = useState(false);
     const [background, setBackground] = useState('')
-    
-    const handleInput = (e) => {
-        setsearchTerm(e.target.value);
-    }
 
     // Dynamically changes background depending on current weather
     const backgroundHandler = () => {
         // Day Backgrounds
         if (Object.keys(weatherData).length > 0) {
-            if (weatherData.current.weather[0].icon === '01d') {
+            const weatherIcon = weatherData.current.weather[0].icon
+
+            if (weatherIcon === '01d') {
                 setBackground(clear)
-            } else if (weatherData.current.weather[0].icon === '02d' || weatherData.current.weather[0].icon === '04d' ) {
+            } else if (weatherIcon === '02d' || weatherIcon === '04d' ) {
                 setBackground(partlyCloudy)
-            } else if (weatherData.current.weather[0].icon === '03d') {
+            } else if (weatherIcon === '03d') {
                 setBackground(cloudy)
-            } else if (weatherData.current.weather[0].icon === '09d' || weatherData.current.weather[0].icon === '10d') {
+            } else if (weatherIcon === '09d' || weatherIcon === '10d') {
                 setBackground(rain)
-            } else if (weatherData.current.weather[0].icon === '11d') {
+            } else if (weatherIcon === '11d') {
                 setBackground(thunder)
-            } else if (weatherData.current.weather[0].icon === '13d') {
+            } else if (weatherIcon === '13d') {
                 setBackground(snow)
-            } else if (weatherData.current.weather[0].icon === '50d') {
+            } else if (weatherIcon === '50d') {
                 setBackground(fog)
             }
             // Night Backgrounds 
-            else if (weatherData.current.weather[0].icon === '01n') {
+            else if (weatherIcon === '01n') {
                 setBackground(clearNight)
-            } else if (weatherData.current.weather[0].icon === '02n' || weatherData.current.weather[0].icon === '04n' ) {
+            } else if (weatherIcon === '02n' || weatherIcon === '04n' ) {
                 setBackground(partlyCloudyNight)
-            } else if (weatherData.current.weather[0].icon === '03n') {
+            } else if (weatherIcon === '03n') {
                 setBackground(partlyCloudyNight)
-            } else if (weatherData.current.weather[0].icon === '09n' || weatherData.current.weather[0].icon === '10n') {
+            } else if (weatherIcon === '09n' || weatherIcon === '10n') {
                 setBackground(rainNight)
-            } else if (weatherData.current.weather[0].icon === '11n') {
+            } else if (weatherIcon === '11n') {
                 setBackground(thunderNight)
-            } else if (weatherData.current.weather[0].icon === '13n') {
+            } else if (weatherIcon === '13n') {
                 setBackground(snowNight)
-            } else if (weatherData.current.weather[0].icon === '50n') {
+            } else if (weatherIcon === '50n') {
                 setBackground(fogNight)
             }
         }
@@ -76,31 +75,39 @@ const WeatherContainer = () => {
     
     const handleSearch = () => {
         setLoading(true)
-        fetch(`/weather/${searchTerm}`)
-            .then(res => res.json())
-            .then(result => {
-                setLoading(false)
-                setWeatherData(result.weatherData)
-                setLocation(result.areaData.results[0].formatted_address)
-                setsearchTerm('')
-            })
-       backgroundHandler();
+        setTimeout(async () => {
+            const res = await fetch(`/weather/${searchTerm}`)
+            const data = await res.json()            
+            setLoading(false)
+            setWeatherData(data.weatherData)
+            setLocation(data.areaData.results[0].formatted_address)
+            setsearchTerm('')
+        }, 2000)
     };
-
+    
     useEffect(() => {
-        backgroundHandler();
-    }, []);
+        backgroundHandler()
+    })
 
     return (
         <div id='container'>
             <div className='bar'>
-                    <input className='searchbar' type='text' value={searchTerm} name='searchTerm' onChange={handleInput} placeholder='Enter City & State' autoComplete='off' required/>
-                    <button className='search-btn' onClick={handleSearch} type='submit' value='submit' name='button'>
+                    <input 
+                        className='searchbar' 
+                        type='text' 
+                        name='searchTerm'
+                        value={searchTerm} 
+                        onChange={(e) => setsearchTerm(e.target.value)} 
+                        placeholder='Enter City & State' 
+                        autoComplete='off' 
+                        required
+                    />
+                    <button className='search-btn' onClick={handleSearch} type='submit' name='button'>
                         <Icon icon={searchIcon} flip="horizontal" />
                     </button>
             </div>
                 {loading 
-                    ? <h1 style={{color:'black'}}>Loading search results...</h1>
+                    ? <img src={Spinner} />
                 : Object.keys(weatherData).length > 0 && !loading
                     ? <div className='weather-container' style={{backgroundImage: `url(${background})`}}>
                             <CurrentWeatherComponent
